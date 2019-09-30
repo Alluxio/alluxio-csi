@@ -1,0 +1,24 @@
+## What is Alluxio
+[Alluxio](https://www.alluxio.io) (formerly known as Tachyon)
+is a virtual distributed storage system. It bridges the gap between
+computation frameworks and storage systems, enabling computation applications to connect to
+numerous storage systems through a common interface. Read more about
+[Alluxio Overview](https://docs.alluxio.io/os/user/stable/en/Overview.html).
+
+The Alluxio project originated from a research project called Tachyon at AMPLab, UC Berkeley,
+which was the data layer of the Berkeley Data Analytics Stack ([BDAS](https://amplab.cs.berkeley.edu/bdas/)).
+For more details, please refer to Haoyuan Li's PhD dissertation
+[Alluxio: A Virtual Distributed File System](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2018/EECS-2018-29.html).
+
+## Container Storage Interface for Alluxio
+
+This repository contains the CSI implementation to provide POSIX access to Alluxio in
+containerized environments such as Kubernetes.
+
+## Useful Links
+
+- [Alluxio Github](https://github.com/Alluxio/alluxio)
+- [Alluxio Website](https://www.alluxio.io/)
+- [Downloads](https://www.alluxio.io/download)
+- [Releases and Notes](https://www.alluxio.io/download/releases/)
+- [Documentation](https://www.alluxio.io/docs/)
