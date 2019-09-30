@@ -1,4 +1,4 @@
-module github.com/mingfang/alluxio-csi
+module github.com/Alluxio/alluxio-csi
 
 go 1.13
 
