@@ -8,7 +8,6 @@ import (
 
     "github.com/container-storage-interface/spec/lib/go/csi"
     "github.com/golang/glog"
-    "github.com/kubernetes-csi/drivers/pkg/csi-common"
     "golang.org/x/net/context"
     "google.golang.org/grpc/codes"
     "google.golang.org/grpc/status"
@@ -54,9 +53,9 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
     javaOptions := req.GetVolumeContext()["java_options"]
 
     /*
-        short-circuit and locality
-        https://docs.alluxio.io/os/user/edge/en/advanced/Tiered-Locality.html
-     */
+       short-circuit and locality
+       https://docs.alluxio.io/os/user/edge/en/advanced/Tiered-Locality.html
+    */
     var shortCircuitOptions string
     domainSocket := req.GetVolumeContext()["alluxio.worker.data.server.domain.socket.address"]
     if domainSocket != "" {

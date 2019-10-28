@@ -3,7 +3,6 @@ package alluxio
 import (
     "github.com/container-storage-interface/spec/lib/go/csi"
     "github.com/golang/glog"
-
     csicommon "github.com/kubernetes-csi/drivers/pkg/csi-common"
 )
 
@@ -37,7 +36,7 @@ func (d *driver) newControllerServer() *controllerServer {
 }
 func (d *driver) newNodeServer() *nodeServer {
     return &nodeServer{
-        nodeId: d.nodeId,
+        nodeId:            d.nodeId,
         DefaultNodeServer: csicommon.NewDefaultNodeServer(d.csiDriver),
     }
 }
