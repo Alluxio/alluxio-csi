@@ -50,7 +50,6 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 	*/
 
 	masterHost := req.GetVolumeContext()["alluxio.master.hostname"]
-	masterPort := req.GetVolumeContext()["alluxio.master.port"]
 	javaOptions := req.GetVolumeContext()["java_options"]
 
 	/*
@@ -81,7 +80,6 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 	command := exec.Command("/opt/alluxio/integration/fuse/bin/alluxio-fuse", args...)
 	alluxioJavaOpts := "ALLUXIO_JAVA_OPTS=" + strings.Join([]string{
 		fmt.Sprintf("-Dalluxio.master.hostname=%s", masterHost),
-		fmt.Sprintf("-Dalluxio.master.port=%s", masterPort),
 		fmt.Sprintf("-Dalluxio.user.app.id=%s", req.GetVolumeId()),
 		shortCircuitOptions,
 		javaOptions,
