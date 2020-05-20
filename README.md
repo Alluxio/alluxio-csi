@@ -15,6 +15,34 @@ For more details, please refer to Haoyuan Li's PhD dissertation
 This repository contains the CSI implementation to provide POSIX access to Alluxio in
 containerized environments such as Kubernetes.
 
+## How to build
+
+Build alluxio-csi docker image
+
+`docker build . -t alluxio/alluxio-csi:<version_tag>`
+
+## Example
+
+### Deploy
+
+Go to `deploy` folder, Run following commands:
+```bash
+kubectl apply -f csi-alluxio-driver.yml
+kubectl apply -f csi-alluxio-daemon.yml
+``` 
+
+### Example Nginx application
+The `/examples` folder contains `PersistentVolume`, `PersistentVolumeClaim` and an nginx `Pod` mounting the alluxio volume under `/data`.
+
+You will need to update the alluxio `MASTER_HOST_NAME` and the share information under `volumeAttributes` in `alluxio-pv.yaml` file to match your alluxio master configuration.
+
+Run following commands to create nginx pod mounted with alluxio volume:
+```bash
+kubectl apply -f alluxio-pv.yml
+kubectl apply -f alluxio-pvc.yml
+kubectl apply -f nginx.yml
+```
+
 ## Useful Links
 
 - [Alluxio Github](https://github.com/Alluxio/alluxio)

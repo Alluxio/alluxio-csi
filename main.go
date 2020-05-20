@@ -7,8 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/Alluxio/alluxio-csi/alluxio"
 	"github.com/golang/glog"
-	"github.com/mingfang/alluxio-csi/alluxio"
 	"github.com/spf13/cobra"
 )
 
@@ -61,7 +61,7 @@ func handle() {
 Based on https://github.com/openshift/origin/blob/master/pkg/util/proc/reaper.go
 The alluxio-fuse script nohup the Alluxio java client for the FUSE mount and then exits.
 That causes the java process to become defunct after un-mounting.
- */
+*/
 func startReaper() {
 	glog.V(4).Infof("Launching reaper")
 	go func() {
