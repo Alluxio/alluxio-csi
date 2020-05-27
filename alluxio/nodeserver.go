@@ -1,6 +1,7 @@
 package alluxio
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"strings"
@@ -59,7 +60,18 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 	}
 	args = append(args, targetPath, alluxioPath)
 	command := exec.Command("/opt/alluxio/integration/fuse/bin/alluxio-fuse", args...)
-	command.Env = append(os.Environ())
+
+	masterConfig := ""
+	if masterHost, ok := req.GetVolumeContext()["alluxio.master.hostname"]; ok {
+		masterConfig = fmt.Sprintf("-Dalluxio.master.hostname=%s", masterHost)
+	}
+	javaOptions := req.GetVolumeContext()["java_options"]
+	existJavaOpts := os.Getenv("ALLUXIO_JAVA_OPTS")
+	alluxioJavaOpts := "ALLUXIO_JAVA_OPTS=" + strings.Join([]string{existJavaOpts,
+		masterConfig,
+		javaOptions,
+	}, " ")
+	command.Env = append(os.Environ(), alluxioJavaOpts)
 
 	glog.V(4).Infoln(command)
 	stdoutStderr, err := command.CombinedOutput()
