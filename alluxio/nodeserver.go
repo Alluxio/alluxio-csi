@@ -49,24 +49,6 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 	   https://github.com/Alluxio/alluxio/blob/master/integration/fuse/bin/alluxio-fuse
 	*/
 
-	masterHost := req.GetVolumeContext()["alluxio.master.hostname"]
-	javaOptions := req.GetVolumeContext()["java_options"]
-
-	/*
-	   short-circuit and locality
-	   https://docs.alluxio.io/os/user/edge/en/advanced/Tiered-Locality.html
-	*/
-	var shortCircuitOptions string
-	domainSocket := req.GetVolumeContext()["alluxio.worker.data.server.domain.socket.address"]
-	if domainSocket != "" {
-		shortCircuitOptions = strings.Join([]string{
-			fmt.Sprintf("-Dalluxio.worker.data.server.domain.socket.address=%s", domainSocket),
-			fmt.Sprintf("-Dalluxio.locality.node=%s", ns.nodeId),
-			"-Dalluxio.worker.data.server.domain.socket.as.uuid=true",
-			"-Dalluxio.user.short.circuit.enabled=true",
-		}, " ")
-	}
-
 	alluxioPath := req.GetVolumeContext()["alluxio_path"]
 	if alluxioPath == "" {
 		alluxioPath = "/"
@@ -78,10 +60,15 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 	}
 	args = append(args, targetPath, alluxioPath)
 	command := exec.Command("/opt/alluxio/integration/fuse/bin/alluxio-fuse", args...)
-	alluxioJavaOpts := "ALLUXIO_JAVA_OPTS=" + strings.Join([]string{
-		fmt.Sprintf("-Dalluxio.master.hostname=%s", masterHost),
-		fmt.Sprintf("-Dalluxio.user.app.id=%s", req.GetVolumeId()),
-		shortCircuitOptions,
+
+	masterConfig := ""
+	if masterHost, ok := req.GetVolumeContext()["alluxio.master.hostname"]; ok {
+		masterConfig = fmt.Sprintf("-Dalluxio.master.hostname=%s", masterHost)
+	}
+	javaOptions := req.GetVolumeContext()["java_options"]
+	existJavaOpts := os.Getenv("ALLUXIO_JAVA_OPTS")
+	alluxioJavaOpts := "ALLUXIO_JAVA_OPTS=" + strings.Join([]string{existJavaOpts,
+		masterConfig,
 		javaOptions,
 	}, " ")
 	command.Env = append(os.Environ(), alluxioJavaOpts)
