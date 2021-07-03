@@ -1,3 +1,7 @@
+## Update on 07-03-2021
+This feature has been moved back to Alluxio main repo https://github.com/Alluxio/alluxio/tree/master/integration/csi,
+and no longer maintained in this separate repo.
+
 ## What is Alluxio
 [Alluxio](https://www.alluxio.io) (formerly known as Tachyon)
 is a virtual distributed storage system. It bridges the gap between
