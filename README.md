@@ -1,3 +1,8 @@
+## Update on 10-04-2021
+This feature has been available in alluxio/alluxio docker image.
+The source code in Alluxio main repo has been moved to https://github.com/Alluxio/alluxio/tree/master/integration/docker/csi.
+The documentation (README.md) in Alluxio main repo has been moved to https://github.com/Alluio/alluxio/tree/master/integration/kubernetes/CSI_README.md.
+
 ## Update on 07-03-2021
 This feature has been moved back to Alluxio main repo https://github.com/Alluxio/alluxio/tree/master/integration/csi,
 and no longer maintained in this separate repo.
