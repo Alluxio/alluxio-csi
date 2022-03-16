@@ -40,7 +40,7 @@ spec:
             capabilities:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: alluxio/alluxio-csi:2.2.1
+          image: alluxio/alluxio-csi:latest
           command: ["/usr/local/bin/alluxio-csi"]
           args :
             - "--nodeid=$(NODE_ID)"
