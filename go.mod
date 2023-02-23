@@ -10,9 +10,8 @@ require (
 	github.com/kubernetes-csi/drivers v1.0.2
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect
-	golang.org/x/net v0.0.0-20190514140710-3ec191127204
-	golang.org/x/sys v0.0.0-20190516110030-61b9204099cb // indirect
-	golang.org/x/text v0.3.2 // indirect
+	golang.org/x/net v0.0.0-20220722155237-a158d28d115b
+	golang.org/x/text v0.3.8 // indirect
 	google.golang.org/genproto v0.0.0-20190516172635-bb713bdc0e52 // indirect
 	google.golang.org/grpc v1.20.1
 	k8s.io/apimachinery v0.0.0-20190515023456-b74e4c97951f // indirect
